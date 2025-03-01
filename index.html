@@ -6,15 +6,22 @@
     <title>Redirecting...</title>
     <script>
         window.onload = function() {
-            let name = sessionStorage.getItem("user_name");
-            let email = sessionStorage.getItem("user_email");
+            let name = localStorage.getItem("user_name");
+            let email = localStorage.getItem("user_email");
 
             // Extract payment_id from URL
             const urlParams = new URLSearchParams(window.location.search);
-            let paymentID = urlParams.get("payment_id");
+            let paymentID = urlParams.get("payment_id") || "Not Available"; // Handle if missing
+
+            // Validate if data is present
+            if (!name || !email) {
+                alert("User details are missing! Please re-enter.");
+                window.location.href = "your_registration_page.html"; // Redirect if needed
+                return;
+            }
 
             // Google Form Pre-filled URL
-            let googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSc1wMvMUeFEoabpalrTgshbwcagdF_HmF3KLNJhcUCMsLvlXw/viewform?usp=header";
+            let googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSc1wMvMUeFEoabpalrTgshbwcagdF_HmF3KLNJhcUCMsLvlXw/viewform";
             let prefilledURL = `${googleFormURL}?usp=pp_url` +
                 `&entry.1126680942=${encodeURIComponent(name)}` +
                 `&entry.1197843328=${encodeURIComponent(email)}` +
