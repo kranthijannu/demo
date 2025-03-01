@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        window.onload = function() {
+            let name = sessionStorage.getItem("user_name");
+            let email = sessionStorage.getItem("user_email");
+
+            // Extract payment_id from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            let paymentID = urlParams.get("payment_id");
+
+            // Google Form Pre-filled URL
+            let googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSc1wMvMUeFEoabpalrTgshbwcagdF_HmF3KLNJhcUCMsLvlXw/viewform?usp=header";
+            let prefilledURL = `${googleFormURL}?usp=pp_url` +
+                `&entry.1126680942=${encodeURIComponent(name)}` +
+                `&entry.1197843328=${encodeURIComponent(email)}` +
+                `&entry.400572610=${encodeURIComponent("YES")}` + // Payment Status
+                `&entry.1088343056=${encodeURIComponent(paymentID)}`;  // Payment ID
+
+            // Redirect to the Google Form
+            window.location.href = prefilledURL;
+        };
+    </script>
+</head>
+<body>
+    <h3>Redirecting to confirmation form...</h3>
+</body>
+</html>
